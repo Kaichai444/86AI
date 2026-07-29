@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "AI Content Blocker",
+  "version": "1.0",
+  "description": "Blocks known AI-generated content from Chrome web browser",
+  "permissions": ["storage", "declarativeNetRequest", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ai_blocklist",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
+} 
